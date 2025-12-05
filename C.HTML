@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savanna Speed | Africa's Motorsport Hub</title>
+    <style>
+        :root {
+            --primary-color: #D6782B; /* Savanna Orange */
+            --secondary-color: #000000;
+            --text-light: #F4F4F4;
+            --text-dark: #333333;
+            --bg-light: #f9f9f9;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: #fff;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navigation */
+        header {
+            background-color: var(--secondary-color);
+            color: var(--text-light);
+            padding: 0.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        .header-logo {
+            height: 50px;
+            width: auto;
+            margin-right: 15px;
+        }
+
+        .logo-text {
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            text-align: center;
+            padding: 100px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-logo {
+            /* INCREASED SIZE HERE (600px) */
+            max-width: 600px; 
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            animation: fadeIn 1s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            animation: fadeIn 1s ease-out 0.6s forwards;
+            opacity: 0;
+        }
+
+        .cta-button {
+            background-color: var(--secondary-color);
+            color: var(--text-light);
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: transform 0.2s;
+            animation: fadeIn 1s ease-out 0.9s forwards;
+            opacity: 0;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            background-color: #333;
+        }
+
+        /* General Sections */
+        section {
+            padding: 80px 10%;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            text-transform: uppercase;
+            font-size: 2rem;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        /* Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            width: 100%;
+        }
+
+        /* Cards */
+        .card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .card h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        td {
+            padding: 12px 5px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+
+        td:first-child {
+            font-weight: bold;
+            color: var(--primary-color);
+            width: 35%;
+        }
+
+        /* Lists */
+        ul {
+            padding-left: 20px;
+            list-style-type: none;
+        }
+
+        ul li {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        ul li::before {
+            content: "■";
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            position: absolute;
+            left: -20px;
+            top: 2px;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background-color: #fff;
+            border-left: 5px solid var(--primary-color);
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        /* Progress Bars */
+        .progress-container {
+            background-color: #e0e0e0;
+            width: 100%;
+            height: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            transition: width 1.5s ease-out;
+        }
+
+        .investment-stat {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 10px 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--text-light);
+            text-align: center;
+            padding: 60px 10%;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 { font-size: 2rem; }
+            header { flex-direction: column; }
+            nav { margin-top: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo-container">
+            <img src="Picture2.jpg" alt="Savanna Speed Logo" class="header-logo">
+            <span class="logo-text">Savanna Speed</span>
+        </a>
+        <nav>
+            <a href="#about">Our Vision</a>
+            <a href="#product">Hardware</a>
+            <a href="#market">Market</a>
+            <a href="#investment">Investment</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <img src="C:\Users\Dell\Downloads\website data\2.png" alt="Savanna Speed Logo" class="hero-logo">
+        <h1>Zambia as Africa’s Motorsport Hub</h1>
+        <p>Combining innovation and sustainability to build the first Circuit Racing Track in the country.</p>
+        <a href="#investment" class="cta-button">Join the Race - Invest Now</a>
+    </div>
+
+    <section id="about" style="background-color: #fff;">
+        <div class="reveal">
+            <h2>What We Offer</h2>
+        </div>
+        <div class="grid-container">
+            <div class="card reveal">
+                <h3>Hub</h3>
+                <p>Positioning Zambia as the heart of African motorsport with a unique dual-format championship.</p>
+            </div>
+            <div class="card reveal" style="transition-delay: 0.1s;">
+                <h3>Inclusivity</h3>
+                <p>Opening the track to everyone with low-cost entry programs for professional and aspiring drivers, along with engineers and mechanics.</p>
+            </div>
+            <div class="card reveal" style="transition-delay: 0.2s;">
+                <h3>Development</h3>
+                <p>Cutting-edge race car prototypes leveraging new technologies to train African talent.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="product" style="background-color: var(--bg-light);">
+        <div class="reveal">
+            <h2>The Hardware</h2>
+        </div>
+        
+        <div class="grid-container">
+            <div class="card reveal">
+                <h3>The Prototype Car</h3>
+                <p>We aim to build a high-performance race prototype with low cost and low environmental impact.</p>
+                <table>
+                    <tr>
+                        <td>Bodywork</td>
+                        <td>Closed-wheel bodywork with plastic aero appendices</td>
+                    </tr>
+                    <tr>
+                        <td>Chassis</td>
+                        <td>Simple tubular frame</td>
+                    </tr>
+                    <tr>
+                        <td>Engine</td>
+                        <td>Recycled motorbike engine and gearbox</td>
+                    </tr>
+                    <tr>
+                        <td>Variations</td>
+                        <td>Single seat (Racing) & Double seat (Training)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="card reveal" style="transition-delay: 0.2s; background-color: #fff; color: var(--text-dark); border-color: #eee;">
+                <h3>The Racetrack</h3>
+                <p>With the support of the Zambian government, we aim to build the country’s first circuit racing track as a national development project.</p>
+                <ul>
+                    <li><strong>Operational Facilities:</strong> Garages, paddock units, and technical buildings.</li>
+                    <li><strong>Efficiency:</strong> Designed for low-cost construction and efficient maintenance.</li>
+                    <li><strong>Revenue:</strong> Monetized through professional race weekends and daily Hot-Lap sessions.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="market" style="background-color: #fff;">
+        <div class="reveal">
+            <h2>Our Reach and Scale</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 30px auto;">
+                We are the only providers of a complete motorsport experience in sub-Saharan Africa.
+            </p>
+        </div>
+        
+        <div class="grid-container">
+            <div class="card reveal">
+                <h4>Total Addressable Market</h4>
+                <div class="investment-stat">230M</div>
+                <p>Population of Zambia and adjacent countries.</p>
+            </div>
+            <div class="card reveal" style="transition-delay: 0.2s;">
+                <h4>Serviceable Obtainable Market</h4>
+                <div class="investment-stat">10M</div>
+                <p>Motorsport enthusiasts.</p>
+            </div>
+        </div>
+        
+        </section>
+
+    <section id="investment" style="background-color: var(--bg-light);">
+        <div class="reveal">
+            <h2>Investment Opportunity</h2>
+            <p style="text-align: center; margin-bottom: 40px;">We are raising funds to cover facility construction, car production, and initial operations.</p>
+        </div>
+
+        <div class="grid-container">
+            <div class="card reveal" style="border-top: 5px solid var(--primary-color);">
+                <h3>Total Ask</h3>
+                <div class="investment-stat">£8,000,000</div>
+                <p>Start-up Funding</p>
+            </div>
+            <div class="card reveal" style="border-top: 5px solid var(--primary-color); transition-delay: 0.2s;">
+                <h3>5-Year ROI</h3>
+                <div class="investment-stat">9.85%</div>
+                <p>Expected Return</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 50px;" class="reveal">
+            <h3>Use of Funds</h3>
+            <div class="progress-container">
+                <div class="progress-bar" data-width="87.7%" style="background-color: var(--primary-color);" title="Facilities (87.7%)"></div>
+                <div class="progress-bar" data-width="11.3%" style="background-color: #333;" title="Car Design (11.3%)"></div>
+                <div class="progress-bar" data-width="1%" style="background-color: #999;" title="Marketing & HR (1%)"></div>
+            </div>
+            <div class="grid-container" style="margin-top: 20px; font-size: 0.9rem; grid-template-columns: repeat(3, 1fr);">
+                <div><span style="color:var(--primary-color); font-size:1.2rem;">■</span> <strong>87.7%</strong> Facilities & Track</div>
+                <div><span style="color:#333; font-size:1.2rem;">■</span> <strong>11.3%</strong> Car Production</div>
+                <div><span style="color:#999; font-size:1.2rem;">■</span> <strong>1%</strong> Marketing & HR</div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="reveal">
+            <h2>Savanna Speed</h2>
+            <p>Headquarters: Lusaka, Zambia</p>
+            <p><em>Authentic and Affordable</em></p>
+            <p style="font-size: 0.8rem; margin-top: 40px;">&copy; 2025 Savanna Speed - Group 24.</p>
+        </div>
+    </footer>
+
+    <script>
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    if (entry.target.querySelector('.progress-bar')) {
+                        const bars = entry.target.querySelectorAll('.progress-bar');
+                        bars.forEach(bar => {
+                            bar.style.width = bar.getAttribute('data-width');
+                        });
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
